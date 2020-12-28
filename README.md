@@ -1,5 +1,5 @@
-Erbil Polytechnic University
-Information System Engineering Department
+Erbil Polytechnic University, 
+Information System Engineering Department, 
 Information Retreival 2020 - 2021
 <div dir="rtl">
 
