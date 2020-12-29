@@ -143,11 +143,13 @@ class HomeController extends Controller
     {
         $data = $this->scrapper();
 
-        $today = CountryStatistic::whereDate('created_at', '=', Carbon::now())->count();
+        $today = CountryStatistic::whereDate('created_at', '=', Carbon::today())->count();
         if ($today) {
+            CountryStatistic::whereDate('created_at', Carbon::today())->delete();
             foreach ($data[0] as $country) {
-                CountryStatistic::whereDate('created_at', Carbon::now())
-                    ->where('country', $country['country'])->update($country);
+
+                $updateCountryStatistic = new CountryStatistic;
+                $updateCountryStatistic->insert($country);
 
             }
         } else {
@@ -159,10 +161,13 @@ class HomeController extends Controller
 
         $yesterday = CountryStatistic::whereDate('created_at', '=', Carbon::yesterday())->count();
         if ($yesterday) {
+            CountryStatistic::whereDate('created_at', Carbon::yesterday())->delete();
             foreach ($data[1] as $country) {
-                CountryStatistic::whereDate('created_at', Carbon::yesterday())
-                    ->where('country', $country['country'])->update($country);
 
+                $updateCountryStatistic = new CountryStatistic;
+                $country['created_at'] = Carbon::yesterday();
+                $country['updated_at'] = Carbon::yesterday();
+                $updateCountryStatistic->insert($country);
 
             }
         } else {
@@ -254,7 +259,6 @@ class HomeController extends Controller
 
     public function worldStats()
     {
-
         if(!CountryStatistic::where('created_at', Carbon::today())->exists()) {
             $this->updateWorldStatistics();
         }

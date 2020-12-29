@@ -40,7 +40,7 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="{{route('home')}}">Scrapping Covid19 Statistics using PHP</a>
+            <a class="navbar-brand" href="{{route('home')}}">Scrapping Covid19 Statistics</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -89,9 +89,8 @@
 <footer>
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <hr>
-                <p>
+            <div class="col-md-12" style="border-top: 1px solid lightgray;">
+                <p class="mt-3">
                     Erbil Polytechnic University<br>
                     Information Systems Engineering<br>
                     <br> <b>Web Scrapper</b> Implementation for Information Retrieval
