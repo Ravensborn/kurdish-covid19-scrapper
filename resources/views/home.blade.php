@@ -2,18 +2,6 @@
 
 @section('content')
 
-    <!--
-    <div class="container">
-        <div class="row">
-            <a href="{{route('kurdistanStats')}}" class="btn btn-outline-warning p-5">Kurdistan Statistics</a>
-        </div>
-        <br>
-        <div class="row">
-            <a href="{{route('worldStats')}}" class="btn btn-outline-danger p-5">World Statistics</a>
-
-        </div>
-    </div>
--->
 
     <div class="container middle-buttons" style="margin: 140px 0 140px 0;">
         <div class="row">

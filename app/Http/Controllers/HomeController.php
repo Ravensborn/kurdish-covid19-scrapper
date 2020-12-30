@@ -6,7 +6,6 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use KubAT\PhpSimple\HtmlDomParser;
 use App\Models\CountryStatistic;
-use App\Models\WorldStatistic;
 
 class HomeController extends Controller
 {
@@ -142,24 +141,23 @@ class HomeController extends Controller
     protected function updateWorldStatistics()
     {
         $data = $this->scrapper();
-
-        $today = CountryStatistic::whereDate('created_at', '=', Carbon::today())->count();
+        $today = CountryStatistic::whereDate('created_at', '=', Carbon::today())->exists();
         if ($today) {
             CountryStatistic::whereDate('created_at', Carbon::today())->delete();
             foreach ($data[0] as $country) {
 
                 $updateCountryStatistic = new CountryStatistic;
-                $updateCountryStatistic->insert($country);
+                $updateCountryStatistic->create($country);
 
             }
         } else {
             foreach ($data[0] as $country) {
                 $updateCountryStatistic = new CountryStatistic;
-                $updateCountryStatistic->insert($country);
+                $updateCountryStatistic->create($country);
             }
         }
 
-        $yesterday = CountryStatistic::whereDate('created_at', '=', Carbon::yesterday())->count();
+        $yesterday = CountryStatistic::whereDate('created_at', '=', Carbon::yesterday())->exists();
         if ($yesterday) {
             CountryStatistic::whereDate('created_at', Carbon::yesterday())->delete();
             foreach ($data[1] as $country) {
@@ -167,7 +165,7 @@ class HomeController extends Controller
                 $updateCountryStatistic = new CountryStatistic;
                 $country['created_at'] = Carbon::yesterday();
                 $country['updated_at'] = Carbon::yesterday();
-                $updateCountryStatistic->insert($country);
+                $updateCountryStatistic->create($country);
 
             }
         } else {
@@ -175,68 +173,11 @@ class HomeController extends Controller
                 $updateCountryStatistic = new CountryStatistic;
                 $country['created_at'] = Carbon::yesterday();
                 $country['updated_at'] = Carbon::yesterday();
-                $updateCountryStatistic->insert($country);
+                $updateCountryStatistic->create($country);
             }
 
         }
 
-
-        //
-
-        /*
-                $exceptions = array(
-                    'World',
-                    ' North America ',
-                    ' Asia ',
-                    ' South America' ,
-                    ' Europe ',
-                    ' Africa ',
-                    ' Oceania ',
-                    // ' ',
-                );
-
-                $map2Number = array(
-                    'World' => 6,
-                    ' North America ' => 0,
-                    ' Asia ' => 1,
-                    ' South America' => 2,
-                    ' Europe ' => 3,
-                    ' Africa ' => 4,
-                    ' Oceania ' => 5,
-                    // ' ',
-                );
-
-
-                foreach ($exceptions as $name) {
-                    if (WorldStatistic::where('country', $name)->whereDate('created_at', Carbon::today())->exists()) {
-
-                        WorldStatistic::where('country', $name)->whereDate('created_at', Carbon::today())->update(
-                            $data[0][$map2Number[$name]],
-                        );
-                    } else {
-                        $var = new WorldStatistic;
-                        $var->create($data[0][$map2Number[$name]]);
-                    }
-                }
-
-                foreach ($exceptions as $name) {
-                    if (WorldStatistic::where('country', $name)->whereDate('created_at', Carbon::yesterday())->exists()) {
-
-
-                        WorldStatistic::where('country', $name)->whereDate('created_at', Carbon::yesterday())->update(
-                            $data[1][$map2Number[$name]],
-                        );
-                    } else {
-                        $var = new WorldStatistic;
-                        $var->create($data[1][$map2Number[$name]]);
-                    }
-                }
-        */
-    /*
-        foreach ($exceptions as $name) {
-            CountryStatistic::where('country', $name)->delete();
-        }
-    */
         CountryStatistic::where('country', " ")->delete();
 
         return true;
@@ -263,13 +204,10 @@ class HomeController extends Controller
             $this->updateWorldStatistics();
         }
 
-        $CountryStatistics = CountryStatistic::select('country', 'new_cases', 'new_deaths', 'new_recovered', 'total_cases', 'total_deaths', 'total_recovered', 'active_cases', 'serious_cases', 'total_tests', 'cases_per_million', 'deaths_per_million', 'tests_per_million', 'population', 'created_at')->get();
-        //$WorldStatistics = WorldStatistic::select('country', 'new_cases', 'new_deaths', 'new_recovered', 'total_cases', 'total_deaths', 'total_recovered', 'active_cases', 'serious_cases', 'total_tests', 'cases_per_million', 'deaths_per_million', 'tests_per_million', 'population', 'created_at')->get();
-
+        $CountryStatistics = CountryStatistic::select('created_at', 'country', 'new_cases', 'new_deaths', 'new_recovered', 'total_cases', 'total_deaths', 'total_recovered', 'active_cases', 'serious_cases', 'total_tests', 'cases_per_million', 'deaths_per_million', 'tests_per_million', 'population')->get();
 
         return view('world', [
             'countryStatistics' => $CountryStatistics->toJson(),
-            //'worldStatistics' => $WorldStatistics->toJson(),
         ]);
 
     }
