@@ -134,7 +134,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../NiceTodo" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -168,7 +168,8 @@
       <workItem from="1609160964652" duration="6588000" />
       <workItem from="1609197773613" duration="1000" />
       <workItem from="1609207855316" duration="2909000" />
-      <workItem from="1609286197354" duration="2927000" />
+      <workItem from="1609286197354" duration="3521000" />
+      <workItem from="1609359207616" duration="23000" />
     </task>
     <servers />
   </component>
