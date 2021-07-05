@@ -9,4 +9,6 @@ Information Retreival 2020 - 2021
 * محمد جعفر ولی
 </div>
 
-The project is built using Laravel framework v8.20.1 head over to Laravels documentation at Laravel.com for installation guides.
+The project is built in Laravel framework v8.20.1, You head over to Laravel documentation at Laravel.com for installation guide.
+
+Contact me at: yad.hoshyar@gmail.com
